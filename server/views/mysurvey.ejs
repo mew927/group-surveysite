@@ -1,0 +1,62 @@
+<%- include partials/header.ejs %>
+
+<%- include partials/main_nav.ejs %>
+
+<!-- Main Content -->
+<main class="container">
+  <h1 class="display-6 d-flex justify-content-center"><%= displayName %>'s Survey List</h1><br>
+  <div class="d-flex justify-content-center">
+    <a href="/create-survey" role="button" class="btn btn-success">
+      Create a New Survey</a>
+  </div><br>
+
+  <div class="row">
+    <table class="table table-bordered table table-striped table-hover">
+      <tr>
+        <th class="text-center">Survey Title</th>
+        <th class="text-center">Due Date</th>
+        <!--view response-->
+        <th class="text-center"></th>
+        <!--edit-->
+        <th class="text-center"></th>
+        <!--delete-->
+        <th class="text-center"></th>
+      </tr>
+      
+      <% for(let count=0; count <SurveyList.length; count++) { %>
+            
+        <tr>
+          <td class="text-center">
+            <%= SurveyList[count].Title%>
+          </td>
+          <td class="text-center">
+            <%= SurveyList[count].EndDate.toISOString().slice(0,10)%>
+          </td>
+          
+          <td class="text-center">
+            <a href="/response/<%= SurveyList[count]._id%>" class="btn btn-success btn-sm">
+              Summary Report
+            </a>
+          </td>
+          
+          <td class="text-center">
+            <a href="/survey-detail/<%= SurveyList[count]._id%>" class="btn btn-success btn-sm">
+              Update
+            </a>
+          </td>
+          <td class="text-center">
+            <a href="/home/delete/<%= SurveyList[count]._id%>" class="btn btn-secondary btn-sm" id="deleteBtn">
+              Delete
+            </a>
+          </td>
+        </tr>
+
+      <% } %>
+
+    </table>
+  </div>
+</main>
+
+<%- include partials/bottom_nav.ejs %>
+
+<%- include partials/footer.ejs %>

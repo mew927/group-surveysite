@@ -1,1 +1,84 @@
+<!-- Main Navigation -->
+
+<nav class="navbar navbar-expand-md navbar-light">
+    <a class="navbar-brand" href="/"><img src="/assets/images/logo.png" alt="Logo" height="75"> EXPLORER SURVEY</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+
+        <li class="nav-item">
+          <% if (title == "Explorer Survey"){ %>
+            <a class="nav-link active" href="/home"><i class="fa-sharp fa-solid fa-house-chimney"></i>
+          <% } else{ %>
+            <a class="nav-link" href="/home"><i class="fa-sharp fa-solid fa-house-chimney"></i>
+          <% } %>
+            </i> Home</a>
+          </li>
+
+        
+        <!--toggle buttons by login status -->
+        <% if(typeof displayName=="string" && displayName){ %>
+          <li class="nav-item">
+            <% if (title == "Survey List"){ %>
+              <a class="nav-link active" href="/allsurvey"><i class="fa-solid fa-list"></i>All Survey List</a>
+            <% } else{ %>
+              <a class="nav-link" href="/allsurvey"><i class="fa-solid fa-list"></i>All Survey List</a>
+            <% } %>
+            </li>
+
+          <li class="nav-item">
+          <% if (title == "Profile"){ %>
+            <a class="nav-link active" ><i class="fa-regular fa-user"></i>Update Profile</a>
+          <% } else{ %>
+            <a class="nav-link" ><i class="fa-regular fa-user"></i>Update Profile</a>
+          <% } %>
+          </li>
+
+          <li class="nav-item">
+          <% if (title == "My Survey List"){ %>
+            <a class="nav-link active" href="/mysurvey"><i class="fa-solid fa-list-check"></i>My Survey List</a>
+          <% } else{ %>
+            <a class="nav-link" href="/mysurvey"><i class="fa-solid fa-list-check"></i>My Survey List</a>
+          <% } %>
+          </li>
+
+          <li class="nav-item" ><a class="nav-link" ><i class="fa-regular fa-face-smile"></i> Hi, <%= displayName %></a></li>
+          <li class="nav-item">
+          <a class="nav-link" href="/logout"><i class="fa-solid fa-arrow-right-from-bracket"></i> Log out</a>
+          </li>
+
+        <% } else { %>
+          <li class="nav-item">
+            <% if (title == "Survey List"){ %>
+              <a class="nav-link active" href="/allsurvey"><i class="fa-solid fa-list"></i>Survey List</a>
+            <% } else{ %>
+              <a class="nav-link" href="/allsurvey"><i class="fa-solid fa-list"></i>Survey List</a>
+            <% } %>
+            </li>
+
+          <li class="nav-item">
+          <% if (title == "Login"){ %>
+            <a class="nav-link active" href="/login"><i class="fa-solid fa-arrow-right-from-bracket"></i> Log in </a>
+          <% } else{ %>
+            <a class="nav-link" href="/login"><i class="fa-solid fa-arrow-right-from-bracket"></i> Log in </a>
+          <% } %>
+          </li>
+
+          <li class="nav-item">
+          <% if (title == "Register"){ %>
+            <a class="nav-link active" href="/register"><i class="fas fa-lg fa-user-plus"></i> Register </a>
+          <% } else{ %>
+            <a class="nav-link" href="/register"><i class="fas fa-user-plus"></i> Register </a>
+          <% } %>
+          </li>
+
+        <% } %>  
+      </ul>  
+
+    </div>
+</nav>
 

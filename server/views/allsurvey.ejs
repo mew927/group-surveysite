@@ -1,0 +1,49 @@
+<%- include partials/header.ejs %>
+
+<%- include partials/main_nav.ejs %>
+
+<!-- Main Content -->
+<main class="container">
+  <h1 class="display-4 d-flex justify-content-center">Survey List</h1><br>
+  <div class="d-flex justify-content-center">
+    <a href="/create-survey" role="button" class="btn btn-success">
+      Create a New Survey</a>
+  </div><br>
+
+  <div class="row">
+    <table class="table table-bordered table table-striped table-hover">
+      <tr>
+        <th class="text-center">Title</th>
+        <th class="text-center">Due Date</th>
+
+        <th class="text-center"></th>
+
+      </tr>
+      <% for(let count=0; count <SurveyList.length; count++) { %>
+        <tr>
+          <td class="text-center">
+            <%= SurveyList[count].Title%>
+          </td>
+          <td class="text-center">
+            <%= SurveyList[count].EndDate.toISOString().slice(0,10)%>
+          </td>
+          
+          <td class="text-center">
+          <% if (Date.now() < SurveyList[count].EndDate) { %>
+            <a href="/answer/<%= SurveyList[count]._id %>" class="btn btn-success btn-sm">
+              Take Survey
+            </a>
+          </td>
+          <% } else { %>
+            <a>Expired</a>
+          <% } %>
+          
+        </tr>
+        <% } %>
+    </table>
+  </div>
+</main>
+
+<%- include partials/bottom_nav.ejs %>
+
+<%- include partials/footer.ejs %>
