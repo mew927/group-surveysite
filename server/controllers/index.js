@@ -4,7 +4,10 @@ let router = express.Router();
 let mongoose = require("mongoose");
 const passport = require("passport");
 
+let Question = require("../models/question");
 let Survey = require("../models/survey");
+let Option = require("../models/option");
+let Response = require("../models/response");
 // create the User Model instance
 let User = require('../models/user');
 
