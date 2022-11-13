@@ -2,8 +2,71 @@
 <%- include partials/main_nav.ejs %>
 
 <main class="container">
-    <h2 class="display-8 d-flex justify-content-center">Details of Survey</h2>
-
+    <!-- Update Title and Enddate -->
+    <h2 class="display-8 d-flex justify-content-center">Details of <%= Survey.Title %></h2>
+    <!-- Form Section -->
+    <div class="m-3">
+        <form class="form" method="POST">
+            <!-- New Title -->
+            <div class="form-group">
+                <label for="titleTextField">Survey Title:</label>
+                <input type="text" class="form-control" id="titleTextField" value="<%= Survey.Title %>" name="title" required>
+            </div><br>
+            <!-- New Date -->
+            <div class="form-group">
+                <label for="endDate">Due date:</label><br>
+                <input style="height: 35px;" type="date" id="endDate" name="endDate" min="<%= currentDate %>" value="<%= new Date(Survey.EndDate).toISOString().slice(0, 10) %>">
+            </div><br>
+            <!-- Button -->
+            <button class="btn btn-success mt-1" type="submit">Save</button>
+            <a href="/mysurvey" class="btn btn-secondary mt-1">Cancel</a>
+        </form>
+    </div>
+    <hr>
+    <h2 class="display-8 d-flex justify-content-center">Question List</h2>
+    <!-- Add Question Buttons -->
+    <div class="m-3">
+        <a class="btn btn-success" href="/survey-detail/<%=Survey._id%>/add-mcq" role="button">Add
+            Multiple-Choice Question</a>
+        <a class="btn btn-success" href="/survey-detail/<%=Survey._id%>/add-tfq" role="button">Add
+            YES/NO Question</a>
+    </div>
+    <!-- Survey Details Table -->
+    <div>
+        <table class="table table-border table-striped table-hover">
+            <tr>
+                <th class="text-center col-5">Question</th>
+                <th class="text-center col-1">Question Type</th>
+                <th class="text-center col-1"><!--edit--></th>
+                <th class="text-center col-1"><!--edit--></th>
+            </tr>
+            <% for(let count=0; count <Survey.QuestionIds.length; count++) { %>
+            <tr>
+                <td class="text-center col-2">
+                    <%= Survey.QuestionIds[count].QuestionText%>
+                </td>
+                <td class="text-center col-2">
+                    <%= Survey.QuestionIds[count].QuestionType%>
+                </td>
+                <!-- Edit and Delete Buttons -->
+                <% if(Survey.QuestionIds[count].QuestionType==="TF" ) { %>
+                <td class="text-center col-2"><a
+                        href="/survey-detail/<%=Survey._id%>/<%=Survey.QuestionIds[count]._id %>/update-tfq"
+                        class="btn btn-success btn-sm">Edit Question</a></td>
+                <% } else {%>
+                <td class="text-center col-2"><a
+                        href="/survey-detail/<%=Survey._id%>/<%=Survey.QuestionIds[count]._id %>/update-mcq"
+                        class="btn btn-success btn-sm">Edit Question</a>
+                </td>
+                <% }%>
+                <td class="text-center col-2"><a
+                        href="/survey-detail/<%=Survey._id%>/<%=Survey.QuestionIds[count]._id %>/delete"
+                        class="btn btn-secondary btn-sm" id="deleteBtn">Delete</a>
+                </td>
+            </tr>
+            <% } %>
+        </table>
+    </div>
 </main>
 
 <%- include partials/bottom_nav.ejs %>

@@ -33,6 +33,66 @@ router.get("/create-survey", requireAuth, indexController.displayAddSurveyPage);
 /* POST Add page. */
 router.post("/create-survey", requireAuth, indexController.processAddSurveyPage);
 
+/* GET Survey Detail page. */
+router.get("/survey-detail/:id", requireAuth, indexController.displaySurveyDetailPage);
+
+/* POST Survey Detail page. */
+router.post("/survey-detail/:id", requireAuth, indexController.processSurveyDetailPage);
+
+/* GET Add TF question page. */
+router.get(
+  "/survey-detail/:id/add-tfq", requireAuth, 
+  indexController.displayAddTFQuestionPage
+);
+
+/* POST Add TF question page. */
+router.post(
+  "/survey-detail/:id/add-tfq", requireAuth,
+  indexController.processAddTFQuestionPage
+);
+
+/* GET Update TF question page. */
+router.get(
+  "/survey-detail/:id/:questionId/update-tfq", requireAuth,
+  indexController.displayUpdateTFQuestionPage
+);
+
+/* POST Update TF question page */
+router.post(
+  "/survey-detail/:id/:questionId/update-tfq", requireAuth,
+  indexController.processUpdateTFQuestionPage
+)
+
+/* GET Add MC question page. */
+router.get(
+  "/survey-detail/:id/add-mcq", requireAuth,
+  indexController.displayAddMCQuestionPage
+);
+
+/* POST Add MC question page. */
+router.post(
+  "/survey-detail/:id/add-mcq", requireAuth,
+  indexController.processAddMCQuestionPage
+);
+
+/* GET Update MC question page. */
+router.get(
+  "/survey-detail/:id/:questionId/update-mcq", requireAuth,
+  indexController.displayUpdateMCQuestionPage
+);
+
+/* POST Update MC question page. */
+router.post(
+  "/survey-detail/:id/:questionId/update-mcq", requireAuth,
+  indexController.processUpdateMCQuestionPage
+);
+
+/* GET Delete question - Delete Opreation */
+router.get(
+  "/survey-detail/:id/:questionId/delete", requireAuth, 
+  indexController.performDeleteQuestion
+);
+
 /* GET Route for displaying Login page*/
 router.get("/login", indexController.displayLoginPage);
 
