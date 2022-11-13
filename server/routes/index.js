@@ -27,6 +27,12 @@ router.get("/home/delete/:id", requireAuth, indexController.performDeleteSurvey)
 /* GET My Survey page. */
 router.get("/mysurvey", requireAuth, indexController.displayMySurveyPage);
 
+/* GET takesurvey page. */
+router.get("/takesurvey/:id", indexController.displaytakesurveyPage);
+
+/* POST takesurvey page. */
+router.post("/takesurvey/:id", indexController.processtakesurveyPage);
+
 /* GET Add page. */
 router.get("/create-survey", requireAuth, indexController.displayAddSurveyPage);
 

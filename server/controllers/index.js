@@ -92,7 +92,44 @@ module.exports.displayMySurveyPage = async (req, res, next) => {
   });
 };
 
+module.exports.displaytakesurveyPage = async (req, res, next) => {
+  let surveyID = req.params.id;
+  const survey = await Survey.findById(surveyID).populate("QuestionIds");
+  const questionList = await Question.find({ SurveyId: surveyID });
+  
+  for (count = 0; count < questionList.length; count++) {
+    await questionList[count].populate("OptionIds");
+  }
+  res.render("takesurvey", {
+    title: "takesurvey",
+    Survey: survey,
+    QuestionList: questionList,
+    displayName: req.user ? req.user.displayName : ''
+  });
 
+};
+
+module.exports.processtakesurveyPage = async (req, res, next) => {
+  let surveyID = req.params.id;
+  let survey = await Survey.findById(surveyID).populate("QuestionIds");
+
+  for(let c = 0; c < survey.QuestionIds.length; c++){
+    let optionVal = req.body["options"+c.toString()];
+    let questionID = survey.QuestionIds[c].id;
+    let selectedOp = await Option.findOne({ QuestionId: questionID, OptionValue: optionVal});
+
+    let newresult = new result({
+      SurveyId: surveyID,
+      QuestionId: questionID,
+      OptionId: selectedOp.id
+    })
+
+    await newresult.save();
+  }
+
+  res.redirect('/');
+
+};
 
 module.exports.displayAddSurveyPage = (req, res, next) => {
   res.render("create-survey", {
