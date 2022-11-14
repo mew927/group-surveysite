@@ -7,7 +7,7 @@ const passport = require("passport");
 let Question = require("../models/question");
 let Survey = require("../models/survey");
 let Option = require("../models/option");
-let result = require("../models/result");
+let Result = require("../models/result");
 // create the User Model instance
 let User = require('../models/user');
 
@@ -62,7 +62,7 @@ module.exports.performDeleteSurvey = (req, res, next) => {
               res.end(err);
             } else {
               //remove results
-              result.remove({SurveyId: id}, (err) => {
+              Result.remove({SurveyId: id}, (err) => {
                 if(err){
                   console.log(err);
                   res.end(err);
@@ -118,7 +118,7 @@ module.exports.processtakesurveyPage = async (req, res, next) => {
     let questionID = survey.QuestionIds[c].id;
     let selectedOp = await Option.findOne({ QuestionId: questionID, OptionValue: optionVal});
 
-    let newresult = new result({
+    let newresult = new Result({
       SurveyId: surveyID,
       QuestionId: questionID,
       OptionId: selectedOp.id
@@ -484,7 +484,7 @@ module.exports.performDeleteQuestion = (req, res, next) => {
           console.log(err);
           res.end(err);
         } else {
-          result.remove({QuestionId: questionID}, (err) => {
+          Result.remove({QuestionId: questionID}, (err) => {
             if(err) {
               console.log(err);
               res.end(err);
@@ -534,6 +534,48 @@ module.exports.processLoginPage = (req, res, next) => {
   })(req, res, next);
 };
 
+module.exports.displayRegisterPage = (req, res, next) => {
+  if (!req.user) {
+    res.render("auth/register", {
+      title: "Register",
+      messages: req.flash("registerMessage"),
+      displayName: req.user ? req.user.displayName : ''
+    });
+  } else {
+    return res.redirect("/");
+  }
+};
+
+module.exports.processRegisterPage = (req, res, next) => {
+  
+  let newUser = new User({
+    username: req.body.username,
+    displayName: req.body.displayName
+  });
+
+  User.register(newUser, req.body.password, (err) => {
+    if (err) {
+      console.log("Error: Inserting New User:");
+      if (err.name == "UserExistsError") {
+        req.flash(
+          "registerMessage",
+          "Registration Error, User Already Exists!"
+        );
+        console.log("Error: User Already Exists.");
+      }
+      return res.render("auth/register", {
+        title: "Register",
+        messages: req.flash("registerMessage"),
+        displayName: req.user ? req.user.displayName : ''
+      });
+    } else {
+
+      return passport.authenticate("local")(req, res, () => {
+        res.redirect("/");
+      });
+    }
+  });
+};
 
 module.exports.performLogout = (req, res, next) => {
   req.logout(function(err) {

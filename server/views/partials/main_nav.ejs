@@ -19,8 +19,6 @@
             </i> Home</a>
           </li>
 
-        
-        <!--toggle buttons by login status -->
         <% if(typeof displayName=="string" && displayName){ %>
           <li class="nav-item">
             <% if (title == "Survey List"){ %>
@@ -30,13 +28,7 @@
             <% } %>
             </li>
 
-          <li class="nav-item">
-          <% if (title == "Profile"){ %>
-            <a class="nav-link active" ><i class="fa-regular fa-user"></i>Update Profile</a>
-          <% } else{ %>
-            <a class="nav-link" ><i class="fa-regular fa-user"></i>Update Profile</a>
-          <% } %>
-          </li>
+          
 
           <li class="nav-item">
           <% if (title == "My Survey List"){ %>
@@ -69,13 +61,13 @@
           </li>
 
           <li class="nav-item">
-          <% if (title == "Register"){ %>
-            <a class="nav-link active" href="/register"><i class="fas fa-lg fa-user-plus"></i> Register </a>
-          <% } else{ %>
-            <a class="nav-link" href="/register"><i class="fas fa-user-plus"></i> Register </a>
-          <% } %>
-          </li>
-
+            <% if (title == "Register"){ %>
+              <a class="nav-link active" href="/register"><i class="fas fa-lg fa-user-plus"></i> Register </a>
+            <% } else{ %>
+              <a class="nav-link" href="/register"><i class="fas fa-user-plus"></i> Register </a>
+            <% } %>
+            </li>
+            
         <% } %>  
       </ul>  
 
