@@ -4,6 +4,11 @@
 
 <!-- Main Content -->
 <main class="container">
+  <% if(typeof displayName=="string" && displayName){ %>
+    <a href="/mysurvey" class="btn btn-success mt-1">My Own Survey List</a>
+    <!--<div ><a href="/create-survey" role="button" class="btn btn-success">Return to My Survey List</a>
+    </div><br>-->
+  <% } %> 
   <h1 class="display-4 d-flex justify-content-center">Survey List</h1><br>
   <div class="d-flex justify-content-center">
     <a href="/create-survey" role="button" class="btn btn-success">

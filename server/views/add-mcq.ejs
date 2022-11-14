@@ -1,7 +1,6 @@
 <%- include partials/header.ejs %>
 
 <%- include partials/main_nav.ejs %>
-
         <!-- Main Content -->
         <main class="container">
             <div class="jumbotron">
@@ -9,9 +8,10 @@
                     <%= title %>
                 </h1>
             </div>
-
+            <a href="/mysurvey" class="btn btn-success mt-1">Return to My Survey List</a>
+            <!--<div ><a href="/create-survey" role="button" class="btn btn-success">Return to My Survey List</a>
+            </div><br>-->
             <hr>
-            <!-- Form Section -->
             <form class="form" method="POST">
                 <div class="form-group mb-3">
                     <label for="questionTextField">Question: </label>
@@ -30,7 +30,6 @@
                     <input type="text" class="form-control" id="option1TextField" placeholder="Enter the option 4"
                         name="option4Txt" required>
                 </div>
-                <!-- Button -->
                 <button class="btn btn-success" type="submit">
                      Submit
                 </button>

@@ -15,11 +15,11 @@
       <tr>
         <th class="text-center">Survey Title</th>
         <th class="text-center">Due Date</th>
-        <!--view result-->
+        <!-- view report -->
         <th class="text-center"></th>
-        <!--edit-->
+        <!-- update -->
         <th class="text-center"></th>
-        <!--delete-->
+        <!-- delete -->
         <th class="text-center"></th>
       </tr>
       
@@ -31,6 +31,12 @@
           </td>
           <td class="text-center">
             <%= SurveyList[count].EndDate.toISOString().slice(0,10)%>
+          </td>
+          
+          <td class="text-center">
+            <a href="/report/<%= SurveyList[count]._id%>" class="btn btn-success btn-sm">
+              Summary Report
+            </a>
           </td>
           
           <td class="text-center">

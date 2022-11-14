@@ -27,11 +27,11 @@ router.get("/home/delete/:id", requireAuth, indexController.performDeleteSurvey)
 /* GET My Survey page. */
 router.get("/mysurvey", requireAuth, indexController.displayMySurveyPage);
 
-/* GET takesurvey page. */
-router.get("/takesurvey/:id", indexController.displaytakesurveyPage);
+/* GET Takesurvey page. */
+router.get("/takesurvey/:id", indexController.displayTakesurveyPage);
 
-/* POST takesurvey page. */
-router.post("/takesurvey/:id", indexController.processtakesurveyPage);
+/* POST Takesurvey page. */
+router.post("/takesurvey/:id", indexController.processTakesurveyPage);
 
 /* GET Add page. */
 router.get("/create-survey", requireAuth, indexController.displayAddSurveyPage);
@@ -93,6 +93,9 @@ router.post(
   indexController.processUpdateMCQuestionPage
 );
 
+/* GET Report page  */
+router.get("/report/:id", requireAuth, indexController.displayReportPage);
+
 /* GET Delete question - Delete Opreation */
 router.get(
   "/survey-detail/:id/:questionId/delete", requireAuth, 
@@ -113,5 +116,11 @@ router.post("/register", indexController.processRegisterPage);
 
 /* GET to perform userLogout*/
 router.get("/logout", indexController.performLogout);
+
+/* GET Route for displaying user profile*/
+router.get("/profile", requireAuth, indexController.displayProfilePage);
+
+/* POST Route for processing edit user profile*/
+router.post("/profile", requireAuth, indexController.processUpdateProfilePage);
 
 module.exports = router;

@@ -4,11 +4,11 @@ let router = express.Router();
 let mongoose = require("mongoose");
 const passport = require("passport");
 
+// create Models instance
 let Question = require("../models/question");
 let Survey = require("../models/survey");
 let Option = require("../models/option");
 let Result = require("../models/result");
-// create the User Model instance
 let User = require('../models/user');
 
 
@@ -18,7 +18,7 @@ module.exports.displayHomePage = (req, res, next) => {
       return console.error(err);
     } else {
       res.render("index", {
-        title: "Explorer Survey",
+        title: "Explorers Survey",
         SurveyList: surveyList,
         displayName: req.user ? req.user.displayName : ''
       });
@@ -40,59 +40,7 @@ module.exports.displayAllSurvey = (req, res, next) => {
   });
 };
 
-module.exports.performDeleteSurvey = (req, res, next) => {
-  let id = req.params.id;
-
-  //remove survey
-  Survey.remove({ _id: id }, (err) => {
-    if (err) {
-      console.log(err);
-      res.end(err);
-    } else {
-      //remove questions
-      Question.remove({ SurveyId: id }, (err) => {
-        if (err) {
-          console.log(err);
-          res.end(err);
-        } else {
-          //remove options
-          Option.remove({ SurveyId: id }, (err) => {
-            if (err) {
-              console.log(err);
-              res.end(err);
-            } else {
-              //remove results
-              Result.remove({SurveyId: id}, (err) => {
-                if(err){
-                  console.log(err);
-                  res.end(err);
-                }
-                else{
-                  res.redirect("/mysurvey");
-                }
-              })
-            }
-          });
-        }
-      });
-    }
-  });
-};
-
-//mysurveypage
-module.exports.displayMySurveyPage = async (req, res, next) => {
-  let userID = req.user.id;
-  const surveyList = await Survey.find({UserId: userID});
-  //console.log(surveyList);
-  console.log(userID);
-  res.render("mysurvey", {
-    title:"My Survey List",
-    SurveyList: surveyList,
-    displayName: req.user ? req.user.displayName : ''
-  });
-};
-
-module.exports.displaytakesurveyPage = async (req, res, next) => {
+module.exports.displayTakesurveyPage = async (req, res, next) => {
   let surveyID = req.params.id;
   const survey = await Survey.findById(surveyID).populate("QuestionIds");
   const questionList = await Question.find({ SurveyId: surveyID });
@@ -101,7 +49,7 @@ module.exports.displaytakesurveyPage = async (req, res, next) => {
     await questionList[count].populate("OptionIds");
   }
   res.render("takesurvey", {
-    title: "takesurvey",
+    title: "Take Survey",
     Survey: survey,
     QuestionList: questionList,
     displayName: req.user ? req.user.displayName : ''
@@ -109,7 +57,7 @@ module.exports.displaytakesurveyPage = async (req, res, next) => {
 
 };
 
-module.exports.processtakesurveyPage = async (req, res, next) => {
+module.exports.processTakesurveyPage = async (req, res, next) => {
   let surveyID = req.params.id;
   let survey = await Survey.findById(surveyID).populate("QuestionIds");
 
@@ -118,13 +66,13 @@ module.exports.processtakesurveyPage = async (req, res, next) => {
     let questionID = survey.QuestionIds[c].id;
     let selectedOp = await Option.findOne({ QuestionId: questionID, OptionValue: optionVal});
 
-    let newresult = new Result({
+    let newResult = new Result({
       SurveyId: surveyID,
       QuestionId: questionID,
       OptionId: selectedOp.id
     })
 
-    await newresult.save();
+    await newResult.save();
   }
 
   res.redirect('/');
@@ -156,6 +104,56 @@ module.exports.processAddSurveyPage = (req, res, next) => {
   });
 };
 
+
+module.exports.performDeleteSurvey = (req, res, next) => {
+  let id = req.params.id;
+  
+  Survey.remove({ _id: id }, (err) => {
+    if (err) {
+      console.log(err);
+      res.end(err);
+    } else {
+      Question.remove({ SurveyId: id }, (err) => {
+        if (err) {
+          console.log(err);
+          res.end(err);
+        } else {
+          Option.remove({ SurveyId: id }, (err) => {
+            if (err) {
+              console.log(err);
+              res.end(err);
+            } else {
+              Result.remove({SurveyId: id}, (err) => {
+                if(err){
+                  console.log(err);
+                  res.end(err);
+                }
+                else{
+                  res.redirect("/mysurvey");
+                }
+              })
+            }
+          });
+        }
+      });
+    }
+  });
+};
+
+//survey list of a specific user
+module.exports.displayMySurveyPage = async (req, res, next) => {
+  let userID = req.user.id;
+  const surveyList = await Survey.find({UserId: userID});
+  
+  console.log(userID);
+  res.render("mysurvey", {
+    title:"My Survey List",
+    SurveyList: surveyList,
+    displayName: req.user ? req.user.displayName : ''
+  });
+};
+
+
 module.exports.displaySurveyDetailPage = async (req, res, next) => {
   let surveyID = req.params.id;
   const survey = await Survey.findById(surveyID).populate("QuestionIds");
@@ -168,7 +166,6 @@ module.exports.displaySurveyDetailPage = async (req, res, next) => {
 
 };
 
-/* POST Survey Detail page. */
 module.exports.processSurveyDetailPage = async (req, res, next) => {
   let surveyID = req.params.id;
 
@@ -459,7 +456,6 @@ module.exports.performDeleteQuestion = (req, res, next) => {
   console.log(surveyID);
   console.log(questionID);
 
-  //delete qid from the survey's QuestionIds
   Survey.findOneAndUpdate(
     { _id: surveyID },
     { $pull: { QuestionIds: questionID } },
@@ -473,7 +469,6 @@ module.exports.performDeleteQuestion = (req, res, next) => {
     }
   );
 
-  //delete question, options, and results 
   Question.remove({ _id: questionID }, (err) => {
     if (err) {
       console.log(err);
@@ -500,12 +495,12 @@ module.exports.performDeleteQuestion = (req, res, next) => {
 }
 
 module.exports.displayLoginPage = (req, res, next) => {
-  // check if the user if already logged in
+  // check if the user logged in
   if (!req.user) {
     res.render("auth/login", {
       title: "Login",
       messages: req.flash("loginMessage"),
-      displayName: req.user ? req.user.displayName : '' // to check if the user is there
+      displayName: req.user ? req.user.displayName : '' // to check if the user exists
     });
   } else {
     return res.redirect("/");
@@ -518,7 +513,7 @@ module.exports.processLoginPage = (req, res, next) => {
     if (err) {
       return next(err);
     }
-    // is there a user login error?
+    // user login error
     if (!user) {
       req.flash("loginMessage", "Authentication Error");
       return res.redirect("/login");
@@ -535,6 +530,7 @@ module.exports.processLoginPage = (req, res, next) => {
 };
 
 module.exports.displayRegisterPage = (req, res, next) => {
+  
   if (!req.user) {
     res.render("auth/register", {
       title: "Register",
@@ -582,4 +578,95 @@ module.exports.performLogout = (req, res, next) => {
     if (err) { return next(err); }
     res.redirect('/');
   });
+};
+
+module.exports.displayReportPage = async (req, res, next) => {
+  let surveyID = req.params.id;
+  const survey = await Survey.findById(surveyID).populate("QuestionIds");
+  const questionList = await Question.find({ SurveyId: surveyID });
+  
+  for (count = 0; count < questionList.length; count++) {
+    await questionList[count].populate("OptionIds");
+  }
+  let resultTFCountListOp1 = [];
+  let resultTFCountListOp2 = [];
+  
+  let resultMCQCountListOp1 = [];
+  let resultMCQCountListOp2 = [];
+  let resultMCQCountListOp3 = [];
+  let resultMCQCountListOp4 = [];
+
+  for (i = 0; i < survey.QuestionIds.length; i++){
+    if(survey.QuestionIds[i].QuestionType==="TF"){
+      resultTFCountListOp1[i] = await Result.countDocuments({OptionId: survey.QuestionIds[i].OptionIds[0]});
+      resultTFCountListOp2[i] = await Result.countDocuments({OptionId: survey.QuestionIds[i].OptionIds[1]});
+    }
+    if(survey.QuestionIds[i].QuestionType==="MCQ"){
+      resultMCQCountListOp1[i] = await Result.countDocuments({OptionId: survey.QuestionIds[i].OptionIds[0]});
+      resultMCQCountListOp2[i] = await Result.countDocuments({OptionId: survey.QuestionIds[i].OptionIds[1]});
+      resultMCQCountListOp3[i] = await Result.countDocuments({OptionId: survey.QuestionIds[i].OptionIds[2]});
+      resultMCQCountListOp4[i] = await Result.countDocuments({OptionId: survey.QuestionIds[i].OptionIds[3]});
+    }
+  }
+
+  res.render("report", {
+    title: "report",
+    Survey: survey,
+    Question: questionList,
+    TFresultListOp1: resultTFCountListOp1,
+    TFresultListOp2: resultTFCountListOp2,
+    MCQresultListOp1: resultMCQCountListOp1,
+    MCQresultListOp2: resultMCQCountListOp2,
+    MCQresultListOp3: resultMCQCountListOp3,
+    MCQresultListOp4: resultMCQCountListOp4,
+    displayName: req.user ? req.user.displayName : ''
+  });
+};
+
+module.exports.displayProfilePage = async (req, res, next) => {
+  let userID = req.user.id;
+  const surveyList = await Survey.find({UserId: userID});
+  console.log(req.user.password);
+  res.render("auth/profile", {
+    title:"Profile",
+    messages: req.flash("profileMessage"), 
+    username: req.user? req.user.username: '',
+    displayName: req.user ? req.user.displayName : ''
+  });
+};
+
+module.exports.processUpdateProfilePage = (req, res, next) => {
+  
+  User.findOneAndUpdate(
+    {_id: req.user.id},
+    {$set: {
+      displayName: req.body.displayName
+    }},
+    function (error, success) {
+      if (error) {
+        console.log(error);
+        res.end(error);
+      } else {
+        console.log(success);
+      }
+    }
+  )
+
+  req.user.changePassword(req.body.oldpassword, req.body.newpassword, (error)=> {
+    if (error) {
+      req.flash(
+        "profileMessage",
+        "Profile Error: The current password is not correct."
+      );
+      res.render("auth/profile", {
+        title:"Profile",
+        messages: req.flash("profileMessage"), 
+        username: req.user? req.user.username: '',
+        displayName: req.user ? req.user.displayName : ''
+      });
+    }
+    else{
+      res.redirect("/");
+    }
+  })
 };
