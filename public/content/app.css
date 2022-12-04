@@ -1,13 +1,72 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-}
+/*CSS for All Pages*/
 
-a {
-  color: #00B7FF;
+.navbar {
+  margin-bottom: 30px;
 }
-
 
 .dropdown-menu {
   font-size: 15px;
+}
+
+h1 {
+  margin-bottom: 30px;
+}
+
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color: #a5cccf;
+}
+
+main {
+  font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif
+}
+
+a.btn-light {
+  background-color: #39757b;
+  color: white;
+}
+a.btn-success, button.btn.btn-success {
+  background-color: #39757b;
+}
+
+#deleteBtn {
+  background-color: #8b9aa5;
+}
+
+/*login Page and register Page*/
+
+fieldset.form-group {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+a {
+  color: #4a2a7a;
+}
+
+
+/*report Page*/
+
+a.btn.btn-success {
+  margin-bottom: 20px;
+}
+
+#titleTFResults, #titleMCQResults {
+  margin-top: 50px;
+  margin-bottom: 20px;
+}
+
+
+/*survey-detail Page*/
+
+#surveyBorder {
+  margin : 25px 0px;
+}
+
+
+/*add-mcq Page and add-tfq Page*/
+
+#questionTextField {
+  margin-bottom : 30px;
 }
