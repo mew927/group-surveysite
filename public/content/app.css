@@ -1,9 +1,5 @@
 /*CSS for All Pages*/
 
-.navbar {
-  margin-bottom: 30px;
-}
-
 .dropdown-menu {
   font-size: 15px;
 }
@@ -13,7 +9,6 @@ h1 {
 }
 
 body {
-  padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   background-color: #a5cccf;
 }
@@ -69,4 +64,28 @@ a.btn.btn-success {
 
 #questionTextField {
   margin-bottom : 30px;
+}
+
+
+.navbar-text{
+  width:100%;
+
+padding:10px 20px;
+
+background:#6a8486 !important;
+
+text-align: center;
+}
+
+.navbar{
+  background:#6a8486 !important;
+  padding: 10px;
+}
+nav{
+background-color: #6a8486 !important;
+
+}
+
+.container{
+  padding-top: 15px;
 }
