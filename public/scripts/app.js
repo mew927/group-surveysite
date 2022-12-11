@@ -16,6 +16,15 @@
     }
   }
 
+  if (typeof valuet === "undefined") {
+    valuet = 0;
+  }
+  if (typeof valuef === "undefined") {
+    valuef = 0;
+  }
+  if (typeof tfChartTitle === "undefined") {
+    tfChartTitle = "Question unavailable";
+  }
   let tfChart1 = {
     labels: ["Yes", "No"],
     datasets: [
@@ -50,6 +59,34 @@
     data: tfChart1,
     options: tfOptions,
   });
+
+  if (typeof text1 === "undefined") {
+    text1 = "Option A";
+  }
+  if (typeof text2 === "undefined") {
+    text2 = "Option B";
+  }
+  if (typeof text3 === "undefined") {
+    text3 = "Option C";
+  }
+  if (typeof text4 === "undefined") {
+    text4 = "Option D";
+  }
+  if (typeof value1 === "undefined") {
+    value1 = 0;
+  }
+  if (typeof value2 === "undefined") {
+    value2 = 0;
+  }
+  if (typeof value3 === "undefined") {
+    value3 = 0;
+  }
+  if (typeof value4 === "undefined") {
+    value4 = 0;
+  }
+  if (typeof chartTitle === "undefined") {
+    chartTitle = "Question unavailable";
+  }
 
   let dataChart = {
     labels: [text1, text2, text3, text4],
