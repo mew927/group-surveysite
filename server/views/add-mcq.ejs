@@ -1,0 +1,45 @@
+<%- include partials/header.ejs %>
+
+<%- include partials/main_nav.ejs %>
+        <!-- Main Content -->
+        <main class="container">
+            <div class="jumbotron">
+                <h1 class="display-6">
+                    <%= title %>
+                </h1>
+            </div>
+            <a href="/mysurvey" class="btn btn-success mt-1">Return to My Survey List</a>
+            <!--<div ><a href="/create-survey" role="button" class="btn btn-success">Return to My Survey List</a>
+            </div><br>-->
+            <hr>
+            <form class="form" method="POST">
+                <div class="form-group mb-3">
+                    <label for="questionTextField">Question: </label>
+                    <input type="text" class="form-control" id="questionTextField" placeholder="Enter the Question"
+                        name="questionTxt" required>
+                    <label for="option1TextField">Option1: </label>
+                    <input type="text" class="form-control" id="option1TextField" placeholder="Enter the option 1"
+                        name="option1Txt" required>
+                    <label for="option2TextField">Option2: </label>
+                    <input type="text" class="form-control" id="option2TextField" placeholder="Enter the option 2"
+                        name="option2Txt" required>
+                    <label for="option3TextField">Option3: </label>
+                    <input type="text" class="form-control" id="option3TextField" placeholder="Enter the option 3"
+                        name="option3Txt" required>
+                    <label for="option4TextField">Option 4: </label>
+                    <input type="text" class="form-control" id="option1TextField" placeholder="Enter the option 4"
+                        name="option4Txt" required>
+                </div>
+                <button class="btn btn-success" type="submit">
+                     Submit
+                </button>
+
+                <a href="/survey-detail/<%=Survey._id%>" class="btn btn-secondary">
+                    Cancel
+                </a>
+            </form>
+        </main>
+
+<%- include partials/bottom_nav.ejs %>
+
+<%- include partials/footer.ejs %>

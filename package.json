@@ -1,0 +1,41 @@
+{
+  "name": "group1surveysite",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./server.js"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^6.2.0",
+    "bootstrap": "^5.2.2",
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "ejs": "~2.6.1",
+    "express": "~4.16.1",
+    "express-session": "^1.17.3",
+    "http-errors": "~1.6.3",
+    "jquery": "^3.6.1",
+    "mongoose": "^6.7.2",
+    "morgan": "~1.9.1",
+    "passport": "^0.6.0",
+    "passport-local": "^1.0.0",
+    "passport-local-mongoose": "^7.1.2",
+    "popper.js": "^1.16.1"
+  },
+  "description": "Explorers SURVEY SITE",
+  "main": "server.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mew927/group-surveysite.git"
+  },
+  "author": "Group1-Explorers",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mew927/group-surveysite/issues"
+  },
+  "homepage": "https://github.com/mew927/group-surveysite#readme",
+  "keywords": [
+    "survey"
+  ]
+}

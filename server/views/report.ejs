@@ -1,0 +1,88 @@
+<%- include partials/header.ejs %>
+<h3%- include partials/main_nav.ejs %>
+
+<main class="container">
+    <a href="/mysurvey" class="btn btn-success mt-1">Return to My Survey List</a>
+    <!--<div ><a href="/create-survey" role="button" class="btn btn-success">Return to My Survey List</a>
+    </div><br>-->
+    <h1 class="display-7 d-flex justify-content-center">Report of <%= Survey.Title %> </h1>
+    <hr>
+    <h2 class="display-8 d-flex justify-content-center" id="titleTFResults">YES/NO Questions Results</h2>
+    <h4 class="display-8 d-flex justify-content-center text-uppercase fw-bold">Click on any question to display the corresponding bar chart</h4>
+    <div>
+        <table class="table table-border table-striped table-hover" id="tftable">
+        <tr>
+            <th class="text-center col-3">Question</th>
+            <th class="text-center col-3">Yes</th>
+            <th class="text-center col-3">No</th>
+        </tr>
+            <% for(let count=0; count < Survey.QuestionIds.length; count++) { %>
+                <% if(Survey.QuestionIds[count].QuestionType==="TF") { %>
+                <tr> 
+                <td class="text-center col-2">
+                    <%= Survey.QuestionIds[count].QuestionText %>
+                </td>
+                <td class="text-center col-2">
+                    <%= TFresultListOp1[count] %>
+                </td>
+                <td class="text-center col-2">
+                    <%= TFresultListOp2[count] %>
+                </td>
+                </tr>
+                <script type="text/javascript">
+                    let valuet = '<%= TFresultListOp1[count] %>';
+                    let valuef = '<%= TFresultListOp2[count] %>';
+                    let tfChartTitle = '<%= Survey.QuestionIds[count].QuestionText %>';
+                </script>
+                <% } %>
+            <% }%>
+            <canvas id="tfChart"></canvas>
+        </table>
+        
+
+        <button type="button" class="btn btn-success" id="btnExport1"><i class="fas fa-cloud-download-alt"></i> Export As PDF</button>
+
+        <h2 class="display-8 d-flex justify-content-center" id="titleMCQResults">Multiple-Choice Questions Results</h2>
+        <h4 class="display-8 d-flex justify-content-center text-uppercase fw-bold">Click on any question to display the
+            corresponding bar chart</h4>
+        <table class="table table-border table-striped table-hover" id="mcqtable">
+            <tr>
+                <th class="text-center col-2">Question</th>
+                <th class="text-center col-1">Option A</th>
+                <th class="text-center col-1">Option B</th>
+                <th class="text-center col-1">Option C</th>
+                <th class="text-center col-1">Option D</th>
+            </tr>
+            <% for(let count=0; count < Survey.QuestionIds.length; count++) { %>
+                <% if(Survey.QuestionIds[count].QuestionType==="MCQ") {%>
+                <tr>
+                <td class="text-center col-2">
+                    <%= Survey.QuestionIds[count].QuestionText %>
+                </td>
+                <td class="text-center col-1"><%= MCQresultListOp1[count] %> (<%= Question[count].OptionIds[0].OptionValue %>)</td>
+                <td class="text-center col-1"><%= MCQresultListOp2[count] %> (<%= Question[count].OptionIds[1].OptionValue %>)</td>
+                <td class="text-center col-1"><%= MCQresultListOp3[count] %> (<%= Question[count].OptionIds[2].OptionValue %>)</td>
+                <td class="text-center col-1"><%= MCQresultListOp4[count] %> (<%= Question[count].OptionIds[3].OptionValue %>)</td>
+                </tr>
+                <script type="text/javascript">
+                    let value1 = '<%= MCQresultListOp1[count] %>';
+                    let text1 = '<%= Question[count].OptionIds[0].OptionValue %>';
+                    let value2 = '<%= MCQresultListOp2[count] %>';
+                    let text2 = '<%= Question[count].OptionIds[1].OptionValue %>';
+                    let value3 = '<%= MCQresultListOp3[count] %>';
+                    let text3 = '<%= Question[count].OptionIds[2].OptionValue %>';
+                    let value4 = '<%= MCQresultListOp4[count] %>';
+                    let text4 = '<%= Question[count].OptionIds[3].OptionValue %>';
+                    let chartTitle = '<%= Survey.QuestionIds[count].QuestionText %>';
+                </script>
+                <% } %>
+            <% }%>
+            <canvas id="myChart"></canvas>
+        </table> 
+
+        <button type="button" class="btn btn-success" id="btnExport2"><i class="fas fa-cloud-download-alt"></i> Export As PDF</button>    
+    </div>
+</main>
+
+<%- include partials/bottom_nav.ejs %>
+<%- include partials/footer.ejs %>
