@@ -1,0 +1,44 @@
+<%- include partials/header.ejs %>
+
+<%- include partials/main_nav.ejs %>
+
+<main class="container">
+  <h1 class="display-4">Survey: <%= Survey.Title %></h1><br>
+  <form class="form" method="POST">
+    <div class="row">
+      <div class="col-md-offset-3 col-md-6">
+        <table class="table table-bordered table table-striped table-hover">
+          <tr>
+            <th class="text-center">Question</th>
+            <th class="text-center">Options</th>
+          </tr>
+          <% for(let count=0; count < QuestionList.length; count++) { %>
+            <tr>
+              <td class="text-center col-2">
+                <%= QuestionList[count].QuestionText%>
+              </td>
+              <td class="text-center col-2">
+                  <label for="options<%=count%>"></label>
+                  <select name="options<%=count%>" id="options<%=count%>">
+                    <% for(let i=0; i < QuestionList[count].OptionIds.length; i++) { %>
+                      <option value="<%=QuestionList[count].OptionIds[i].OptionValue%>">
+                        <%=QuestionList[count].OptionIds[i].OptionValue%>
+                      </option>
+                      <% } %>
+                  </select>
+                
+              </td>
+            </tr>
+            <% } %>
+        </table>
+      </div>
+    </div>
+    <button class="btn btn-success mt-1" type="submit"> Submit </button>
+
+    <a href="/allsurvey" class="btn btn-secondary mt-1"> Cancel </a>
+  </form>
+</main>
+
+<%- include partials/bottom_nav.ejs %>
+
+<%- include partials/footer.ejs %>
