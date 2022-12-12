@@ -1,3 +1,10 @@
+/* ******************************************************** 
+* Model for Survey Options
+* File name: option.js 
+* Author: Explorers Team (Group 1)
+* Date: Dec 11, 2022
+* ******************************************************** */
+
 let mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 

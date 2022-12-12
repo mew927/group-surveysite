@@ -1,3 +1,9 @@
+/* ******************************************************** 
+* Model for showing survey report
+* File name: result.js 
+* Author: Explorers Team (Group 1)
+* Date: Dec 11, 2022
+* ******************************************************** */
 let mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 

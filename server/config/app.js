@@ -1,3 +1,9 @@
+/* ******************************************************** 
+* File name: app.js
+* Author: Explorers Team (Group 1)
+* Date: Dec 11, 2022
+* ******************************************************** */
+
 //Install third party packages
 let createError = require("http-errors");
 let express = require("express");

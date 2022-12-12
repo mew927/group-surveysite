@@ -1,3 +1,11 @@
+/* ******************************************************** 
+* File name: app.js
+* Author: Explorers Team (Group 1)
+* Course: Web Application Development 
+* Section: COMP229 - 009
+* Date: Dec 11, 2022
+* ******************************************************** */
+
 // IIFE -- Imediately Invoked Function Expression
 
 (function () {
@@ -16,6 +24,9 @@
     }
   }
 
+  /* ******************************************************** 
+   * Bar chart - for summary report page 
+   * ******************************************************** */
   //If there are no questions, display empty chart - TF Questions results
   if (typeof valuet === "undefined") {
     valuet = 0;
@@ -255,6 +266,9 @@
     });
   }
 
+  /********************************************************* 
+    Export reports as PDF File for report page
+    *********************************************************/
   // download tf report
   $("body").on("click", "#btnExport1", function () {
     html2canvas($("#tfCapture"), {

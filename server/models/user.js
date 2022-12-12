@@ -1,3 +1,10 @@
+/* ******************************************************** 
+* Model for User
+* File name: user.js 
+* Author: Explorers Team (Group 1)
+* Date: Dec 11, 2022
+* ******************************************************** */
+
 let mongoose = require('mongoose');
 let passportLocalMongoose = require('passport-local-mongoose');
 

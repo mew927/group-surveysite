@@ -1,3 +1,12 @@
+/* ******************************************************** 
+* Controllers
+* File name: index.js 
+* Author: Explorers Team (Group 1)
+* Course: Web Application Development 
+* Section: COMP229 - 009
+* Date: Dec 11, 2022
+* ******************************************************** */
+
 let express = require("express");
 let router = express.Router();
 
@@ -11,7 +20,7 @@ let Option = require("../models/option");
 let Result = require("../models/result");
 let User = require('../models/user');
 
-
+/* Landing page. */
 module.exports.displayHomePage = (req, res, next) => {
   Survey.find((err, surveyList) => {
     if (err) {
@@ -25,7 +34,7 @@ module.exports.displayHomePage = (req, res, next) => {
     }
   });
 };
-
+/* All survey page. */
 module.exports.displayAllSurvey = (req, res, next) => {
   Survey.find((err, surveyList) => {
     if (err) {
@@ -39,7 +48,7 @@ module.exports.displayAllSurvey = (req, res, next) => {
     }
   });
 };
-
+/* take survey page. */
 module.exports.displayTakesurveyPage = async (req, res, next) => {
   let surveyID = req.params.id;
   const survey = await Survey.findById(surveyID).populate("QuestionIds");
@@ -78,7 +87,7 @@ module.exports.processTakesurveyPage = async (req, res, next) => {
   res.redirect('/');
 
 };
-
+/* add survey page. */
 module.exports.displayAddSurveyPage = (req, res, next) => {
   res.render("create-survey", {
     title: "Create a New Survey",
@@ -104,10 +113,10 @@ module.exports.processAddSurveyPage = (req, res, next) => {
   });
 };
 
-
+/* delete survey */
 module.exports.performDeleteSurvey = (req, res, next) => {
   let id = req.params.id;
-  
+  //delete a survey ==> remove everything of it: survey/questions/options/results
   Survey.remove({ _id: id }, (err) => {
     if (err) {
       console.log(err);
@@ -139,8 +148,8 @@ module.exports.performDeleteSurvey = (req, res, next) => {
     }
   });
 };
-
-//survey list of a specific user
+/* Page for showing all survey list for a logined user */
+//survey list of a selected user
 module.exports.displayMySurveyPage = async (req, res, next) => {
   let userID = req.user.id;
   const surveyList = await Survey.find({UserId: userID});
@@ -153,7 +162,7 @@ module.exports.displayMySurveyPage = async (req, res, next) => {
   });
 };
 
-
+/*  Page for adding survey questions or update survey questions. */
 module.exports.displaySurveyDetailPage = async (req, res, next) => {
   let surveyID = req.params.id;
   const survey = await Survey.findById(surveyID).populate("QuestionIds");
@@ -185,7 +194,7 @@ module.exports.processSurveyDetailPage = async (req, res, next) => {
   );
   res.redirect(`/survey-detail/${surveyID}`);
 };
-
+/*  Add yes or no (true or false) question Page  */
 module.exports.displayAddTFQuestionPage = async (req, res, next) => {
   let surveyID = req.params.id;
   const survey = await Survey.findById(surveyID);
@@ -249,7 +258,7 @@ module.exports.processAddTFQuestionPage = async (req, res, next) => {
   res.redirect(`/survey-detail/${survey._id}`);
 
 };
-
+/*  Page for updating T/F questions for a seleted survey  */
 module.exports.displayUpdateTFQuestionPage = async (req, res, next) => {
   let surveyID = req.params.id;
   let questionID = req.params.questionId;
@@ -281,7 +290,7 @@ module.exports.processUpdateTFQuestionPage = async (req, res, next) => {
   )
   res.redirect(`/survey-detail/${surveyID}`);
 };
-
+/*  Add multiple question Page for a seleted survey  */
 module.exports.displayAddMCQuestionPage = async (req, res, next) => {
   let surveyID = req.params.id;
   const survey = await Survey.findById(surveyID);
@@ -358,7 +367,7 @@ module.exports.processAddMCQuestionPage = async (req, res, next) => {
   );
   res.redirect(`/survey-detail/${survey._id}`);
 };
-
+/*  Page for updating multiple questions for a seleted survey  */
 module.exports.displayUpdateMCQuestionPage = async (req, res, next) => {
   let surveyID = req.params.id;
   let questionID = req.params.questionId;
@@ -449,13 +458,13 @@ module.exports.processUpdateMCQuestionPage = async (req, res, next) => {
   )
   res.redirect(`/survey-detail/${surveyID}`);
 }
-
+/*  delete questions for a seleted survey  */
 module.exports.performDeleteQuestion = (req, res, next) => {
   let surveyID = req.params.id;
   let questionID = req.params.questionId;
   console.log(surveyID);
   console.log(questionID);
-
+  //delete question id from the selected model survey's QuestionIds
   Survey.findOneAndUpdate(
     { _id: surveyID },
     { $pull: { QuestionIds: questionID } },
@@ -468,7 +477,7 @@ module.exports.performDeleteQuestion = (req, res, next) => {
       }
     }
   );
-
+  //then delete the question and options/responses of the question
   Question.remove({ _id: questionID }, (err) => {
     if (err) {
       console.log(err);
@@ -493,7 +502,7 @@ module.exports.performDeleteQuestion = (req, res, next) => {
     }
   }); 
 }
-
+/*  Login page  */
 module.exports.displayLoginPage = (req, res, next) => {
   // check if the user logged in
   if (!req.user) {
@@ -528,7 +537,7 @@ module.exports.processLoginPage = (req, res, next) => {
     });
   })(req, res, next);
 };
-
+/*  register page  */
 module.exports.displayRegisterPage = (req, res, next) => {
   
   if (!req.user) {
@@ -572,7 +581,7 @@ module.exports.processRegisterPage = (req, res, next) => {
     }
   });
 };
-
+/*  for logout  */
 module.exports.performLogout = (req, res, next) => {
   req.logout(function(err) {
     if (err) { return next(err); }
@@ -580,6 +589,7 @@ module.exports.performLogout = (req, res, next) => {
   });
 };
 
+/*  Page for showing summary report for a selected survey */
 module.exports.displayReportPage = async (req, res, next) => {
   let surveyID = req.params.id;
   const survey = await Survey.findById(surveyID).populate("QuestionIds");
@@ -588,14 +598,16 @@ module.exports.displayReportPage = async (req, res, next) => {
   for (count = 0; count < questionList.length; count++) {
     await questionList[count].populate("OptionIds");
   }
+  //create arrays for storing the number of different options of different questions
+  //arrays for TF question options
   let resultTFCountListOp1 = [];
   let resultTFCountListOp2 = [];
-  
+  //arrays for MCQ question options
   let resultMCQCountListOp1 = [];
   let resultMCQCountListOp2 = [];
   let resultMCQCountListOp3 = [];
   let resultMCQCountListOp4 = [];
-
+  //loop and traverse each question in the given survey
   for (i = 0; i < survey.QuestionIds.length; i++){
     if(survey.QuestionIds[i].QuestionType==="TF"){
       resultTFCountListOp1[i] = await Result.countDocuments({OptionId: survey.QuestionIds[i].OptionIds[0]});
@@ -622,7 +634,7 @@ module.exports.displayReportPage = async (req, res, next) => {
     displayName: req.user ? req.user.displayName : ''
   });
 };
-
+/* Display Profile Page */
 module.exports.displayProfilePage = async (req, res, next) => {
   let userID = req.user.id;
   const surveyList = await Survey.find({UserId: userID});
@@ -634,7 +646,7 @@ module.exports.displayProfilePage = async (req, res, next) => {
     displayName: req.user ? req.user.displayName : ''
   });
 };
-
+/* Update Profile Page */
 module.exports.processUpdateProfilePage = (req, res, next) => {
   
   User.findOneAndUpdate(

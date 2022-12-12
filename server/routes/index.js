@@ -1,3 +1,10 @@
+/* ******************************************************** 
+* Routes
+* File name: index.js
+* Author: Explorers Team (Group 1)
+* Date: Dec 11, 2022
+* ******************************************************** */
+
 let express = require("express");
 let router = express.Router();
 
