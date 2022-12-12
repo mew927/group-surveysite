@@ -10,6 +10,7 @@
     <h2 class="display-8 d-flex justify-content-center" id="titleTFResults">YES/NO Questions Results</h2>
     <h4 class="display-8 d-flex justify-content-center text-uppercase fw-bold">Click on any question to display the corresponding bar chart</h4>
     <div>
+        <div id="tfCapture">
         <table class="table table-border table-striped table-hover" id="tftable">
         <tr>
             <th class="text-center col-3">Question</th>
@@ -36,15 +37,16 @@
                 </script>
                 <% } %>
             <% }%>
-            <canvas id="tfChart"></canvas>
+            <canvas id="tfChart" style="width:100%; max-width:800px" class="mx-auto"></canvas>
         </table>
-        
+        </div>
 
         <button type="button" class="btn btn-success" id="btnExport1"><i class="fas fa-cloud-download-alt"></i> Export As PDF</button>
 
         <h2 class="display-8 d-flex justify-content-center" id="titleMCQResults">Multiple-Choice Questions Results</h2>
         <h4 class="display-8 d-flex justify-content-center text-uppercase fw-bold">Click on any question to display the
             corresponding bar chart</h4>
+        <div id="mcCapture">
         <table class="table table-border table-striped table-hover" id="mcqtable">
             <tr>
                 <th class="text-center col-2">Question</th>
@@ -77,8 +79,9 @@
                 </script>
                 <% } %>
             <% }%>
-            <canvas id="myChart"></canvas>
+            <canvas id="myChart" style="width:100%; max-width:800px" class="mx-auto"></canvas>
         </table> 
+        </div>
 
         <button type="button" class="btn btn-success" id="btnExport2"><i class="fas fa-cloud-download-alt"></i> Export As PDF</button>    
     </div>

@@ -16,6 +16,7 @@
     }
   }
 
+  //If there are no questions, display empty chart - TF Questions results
   if (typeof valuet === "undefined") {
     valuet = 0;
   }
@@ -25,6 +26,8 @@
   if (typeof tfChartTitle === "undefined") {
     tfChartTitle = "Question unavailable";
   }
+
+  //The bar chart for the first question is displayed by default - TF Questions results
   let tfChart1 = {
     labels: ["Yes", "No"],
     datasets: [
@@ -60,6 +63,7 @@
     options: tfOptions,
   });
 
+  //If there are no questions, display empty chart - MC Questions results
   if (typeof text1 === "undefined") {
     text1 = "Option A";
   }
@@ -88,6 +92,7 @@
     chartTitle = "Question unavailable";
   }
 
+  //The bar chart for the first question is displayed by default - MC Questions results
   let dataChart = {
     labels: [text1, text2, text3, text4],
     datasets: [
@@ -132,8 +137,8 @@
     data: dataChart,
     options: options,
   });
-  
 
+  //When clicking on any question, show the corresponding bar char - TF Questions results
   let tTable = document.getElementById("tftable");
 
   for (let i = 0; i < tTable.rows.length; i++) {
@@ -186,6 +191,7 @@
     });
   }
 
+  //When clicking on any question, show the corresponding bar char - MC Questions results
   let table1 = document.getElementById("mcqtable");
 
   for (let j = 0; j < table1.rows.length; j++) {
@@ -251,7 +257,7 @@
 
   // download tf report
   $("body").on("click", "#btnExport1", function () {
-    html2canvas($("#tftable")[0], {
+    html2canvas($("#tfCapture"), {
       onrendered: function (canvas) {
         let data = canvas.toDataURL();
         let docDefinition = {
@@ -268,7 +274,7 @@
   });
   // download mcq report
   $("body").on("click", "#btnExport2", function () {
-    html2canvas($("#mcqtable")[0], {
+    html2canvas($("#mcCapture"), {
       onrendered: function (canvas) {
         let data = canvas.toDataURL();
         let docDefinition = {
