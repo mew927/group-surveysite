@@ -219,7 +219,7 @@
       let num5 = col5.match(/\d+(?=\s)/g);
 
       let dataChart2 = {
-        labels: [text1, text2, text3, text4],
+        labels: ["Option A", "Option B", "Option C", "Option D"],
         datasets: [
           {
             data: [num2, num3, num4, num5],
