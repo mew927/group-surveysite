@@ -16,13 +16,54 @@ h1 {
   margin-bottom: 30px;
 }
 
+#patrialArea {
+  margin-left:15%;
+  margin-right:15%;
+  margin-top: 2%;
+  margin-bottom: 30px;
+  padding:10px;
+  border-radius:50px ;
+  background-color: rgba(254, 252, 239, 0.7);
+  box-shadow:10px 10px 15px #00000080;
+  padding-bottom: 30px;
+  text-align: left;
+}
+
 body {
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  background-color: #a5cccf;
+  font: 17px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-image: url(../assets/images/background.jpg);
 }
 
 main {
   font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif
+}
+label{
+  margin-bottom:10px;
+}
+#patrialAuth {
+  margin-left:25%;
+  margin-right:25%;
+  margin-top: 2%;
+  margin-bottom: 30px;
+  padding:10px;
+  border-radius:50px ;
+  background-color: rgba(254, 252, 239, 0.7);
+  box-shadow:10px 10px 15px #00000080;
+  padding-bottom: 30px;
+  text-align: left;
+}
+
+#patrialReport {
+  margin-left:15%;
+  margin-right:15%;
+  margin-top: 2%;
+  margin-bottom: 30px;
+  padding:10px;
+  border-radius:50px ;
+  background-color: rgba(254, 252, 239, 0.9);
+  box-shadow:10px 10px 15px #00000080;
+  padding-bottom: 30px;
+  text-align: left;
 }
 
 a.btn-light {
@@ -80,17 +121,16 @@ a.btn.btn-success {
 
 padding:10px 20px;
 
-background:#6a8486 !important;
+
 
 text-align: center;
 }
 
 .navbar{
-  background:#6a8486 !important;
   padding: 10px;
 }
 nav{
-background-color: #6a8486 !important;
+  background-color:rgba(30, 132, 112, 0.5);
 
 }
 

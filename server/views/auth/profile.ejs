@@ -5,7 +5,7 @@
 * Date: Dec 11, 2022
 * ******************************************************** */-->
 <%- include ../partials/header.ejs %> <%- include ../partials/main_nav.ejs %>
-
+<div id="patrialArea">
 <main class="container">
   <!-- Message Area-->
   <%if(messages.length>0) {%>
@@ -15,7 +15,7 @@
 
   <div class="row">
     <div class="offset-md-4 col-md-4">
-      <h1>Update <%=title%></h1>
+      <h1 class="text-center">Update <%=title%></h1>
       <form method="POST" autocomplete="off">
         <fieldset class="form-group">
           <label for="username"> Username: </label>
@@ -41,7 +41,7 @@
           />
         </fieldset><br>
 
-        <h2>Update Password</h2>
+        <h2 class="text-center">Update Password</h2>
         <fieldset class="form-group">
           <label for="oldpassword"> Current Password: </label>
           <input
@@ -77,5 +77,5 @@
     </div>
   </div>
 </main>
-
+</div>
 <%- include ../partials/bottom_nav.ejs %> <%- include ../partials/footer.ejs %>
