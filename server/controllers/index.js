@@ -84,7 +84,7 @@ module.exports.processTakesurveyPage = async (req, res, next) => {
     await newResult.save();
   }
 
-  res.redirect('/');
+  res.redirect('/allsurvey');
 
 };
 /* add survey page. */
