@@ -9,19 +9,18 @@
 // IIFE -- Imediately Invoked Function Expression
 
 (function () {
-  function Start() {
-    console.log("App Started...");
+  
+  console.log("App Started...");
+  //show message before deleting an item
+  let deleteButtons = document.querySelectorAll("#deleteBtn");
 
-    let deleteButtons = document.querySelectorAll("#deleteBtn");
-
-    for (button of deleteButtons) {
-      button.addEventListener("click", (event) => {
-        if (!confirm("Are you sure to delete it?")) {
-          event.preventDefault();
-          window.location.reload();
-        }
-      });
-    }
+  for (button of deleteButtons) {
+    button.addEventListener("click", (event) => {
+      if (!confirm("Are you sure to delete it?")) {
+        event.preventDefault();
+        window.location.reload();
+      }
+    });
   }
 
   /* ******************************************************** 
@@ -304,5 +303,4 @@
     });
   });
 
-  window.addEventListener("load", Start);
 })();
